@@ -14,9 +14,6 @@
 include 'css/css.html';
 require 'db.php';
 
-
-    
-
     $result = $mysqli->query("SELECT * FROM cursos") or die($mysqli->error());
     $result_prof = $mysqli->query("SELECT * FROM professores") or die($mysqli->error());
 

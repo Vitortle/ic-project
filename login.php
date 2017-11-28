@@ -22,7 +22,7 @@ else { // User exists
         // This is how we'll know the user is logged in
         $_SESSION['logged_in'] = true;
 
-        header("location: home2.php");
+        header("location: profile.php");
     }
     else {
         $_SESSION['message'] = "Senha incorreta. Tente novamente!";

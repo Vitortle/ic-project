@@ -3,12 +3,52 @@
 <head>
 <title>Template 4</title>
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+<?php
+
+session_start();
+require '../db.php';
+
+if ( $_SESSION['logged_in'] != 1 ) {
+    $_SESSION['message'] = "You must log in before viewing your profile page!";
+    header("location: error.php");    
+}
+else {    
+    $first_name = $_SESSION['first_name'];
+    $last_name = $_SESSION['last_name'];
+    $email = $_SESSION['email'];
+    $active = $_SESSION['active'];   
+    $result = $mysqli->query("SELECT * FROM users WHERE email='$email'") or die($mysqli->error());
+    $row = $result->fetch_object();
+    $_SESSION['id'] = $row->id;
+    $tipo = $row->tipo;
+}
+
+?>
 <link href="../css/p.css" rel="stylesheet">
-</head>
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<meta charset="utf-8">
+<script src="flexsimweb/jquery/jQueryUI/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="flexsimweb/jquery/jQueryUI/jquery-ui.min.css">
+<script src="flexsimweb/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.css" />
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
-<body>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="flexsimweb/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="flexsimweb/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css" href="flexsimweb/default.css">
+<link rel="stylesheet" type="text/css" href="flexsimweb/featherlight/featherlight.min.css" />
+<script src="flexsimweb/featherlight/featherlight.min.js"></script>
+<link rel="apple-touch-icon" href="flexsimweb/images/logoSmall.png"/>
+
+<script src="flexsimweb/jquery/jquery.min.js"></script>
+<script src="../scripts/simulation_functions.js"></script>
+</head>
+<?php require 'db.php'; ?>
+
+
+<body>            
     <div id="wrapper">
         <div id="headerwrap">
         <div id="header">
@@ -72,12 +112,12 @@
             </div>
                 
         </div>
-        
+ 
         
         <div id="fullcontentwrap">
         <div id="fullcontent">
             <div id="p_col">
-                <p>Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. </p>       
+                <p>Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. Coluna da esquerda. </p>                                               					                                    
             </div>
             <div id="s_col">
                 <p>Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. Coluna da direita. </p>

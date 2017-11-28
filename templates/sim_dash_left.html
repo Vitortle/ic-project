@@ -5,6 +5,27 @@
 <!--[if IE]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
 <link href="../css/p.css" rel="stylesheet">
 </head>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<script src="flexsimweb/jquery/jQueryUI/jquery-ui.min.js"></script>
+<link rel="stylesheet" type="text/css" href="flexsimweb/jquery/jQueryUI/jquery-ui.min.css">
+<script src="flexsimweb/bootstrap/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.css" />
+<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" type="text/css" href="flexsimweb/bootstrap/css/bootstrap.min.css">
+<link rel="stylesheet" type="text/css" href="flexsimweb/bootstrap/css/bootstrap-theme.min.css">
+<link rel="stylesheet" type="text/css" href="flexsimweb/default.css">
+<link rel="stylesheet" type="text/css" href="flexsimweb/featherlight/featherlight.min.css" />
+<script src="flexsimweb/featherlight/featherlight.min.js"></script>
+<link rel="apple-touch-icon" href="flexsimweb/images/logoSmall.png"/>
+<script src="flexsimweb/jquery/jquery.min.js"></script>
+<script src="../scripts/simulation_functions.js"></script>
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
 <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
 <link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
@@ -75,7 +96,30 @@
         
         <div id="navigationwrap">
         <div id="navigation">
-            <p></p>
+            <div id="controles">
+                <div id="botao_inicia" style="float: left; padding-left: 10px">
+                    <button id="modelsButton" class="btn btn-primary dropdown-toggle" type="button" onclick="abre_simulacao()">
+                        Iniciar Simulação</button>                            
+                </div>     
+                <div id="controles_simulacao">
+                <button class="model-control" type="button" onclick="resetPressed    ()"><img src="flexsimweb/images/_reset.png"/> Reset</button>
+                <button class="model-control" type="button" onclick="runPressed      ()"><img src="flexsimweb/images/_go.png"/> Run</button>
+                <button class="model-control" type="button" onclick="stopPressed     ()"><img src="flexsimweb/images/_stop.png"/> Stop</button>
+                <button class="model-control" type="button" onclick="stepPressed     ()"><img src="flexsimweb/images/_step.png"/> Step</button>
+                </div>
+                <div id="simRunTime">
+                    Tempo de execução:
+                    <input type="text" id="runtime" name="cont" value="15.48" readonly/>                    
+                </div>   
+                <script type="text/javascript">
+                function abre_simulacao() {
+                    janela_inicia_simulacao = window.open("http://127.0.0.1:8080/webserver.dll?createinstance=1");                
+                }            
+                function fecha_janela_simulacao() {
+                    janela_inicia_simulacao.close();
+               }           
+                </script>
+            </div>
         </div>
         </div>
         <div id="leftcolumnmidwrap">
