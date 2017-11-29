@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>FlexSim Webserver</title>
+
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<link rel="stylesheet" type="text/css" href="flexsimweb/bootstrap/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="flexsimweb/bootstrap/css/bootstrap-theme.min.css">
+		<link rel="stylesheet" type="text/css" href="flexsimweb/default.css">
+		<script src="flexsimweb/jquery/jquery.min.js"></script>
+		<script src="flexsimweb/jquery/jQueryUI/jquery-ui.min.js"></script>
+		<link rel="stylesheet" type="text/css" href="flexsimweb/jquery/jQueryUI/jquery-ui.min.css">
+		<script src="flexsimweb/bootstrap/js/bootstrap.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.css" />
+		<script src="//cdn.rawgit.com/noelboss/featherlight/1.7.0/release/featherlight.min.js"></script>
+
+		<link rel="apple-touch-icon" href="flexsimweb/images/logoSmall.png"/>
+
+		<style>
+			.container {
+				max-width:970px;
+			}
+			.spinner {
+				display: inline-block;
+				background: transparent url(data:image/gif;base64,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) no-repeat;
+				background-size: contain;
+			}
+			.instanceIframe-button {
+				cursor:pointer;
+				height:20px;
+				width:20px;
+				padding:8px;
+				margin:7px;
+				box-sizing:content-box;
+				background-color:rgba(0,0,0,1);
+				background-position:center center;
+				background-size:20px 20px;
+				background-repeat:no-repeat;
+				border-radius:3px;
+			}
+			.instanceIframe-button:hover {
+				background-color:rgba(255,255,255,0.5);
+			}
+			.instanceIframe-legend {
+				margin-left:15px;
+				font-style:italic;
+				font-size:90%;
+				opacity:80%
+			}
+			.instanceIframe-info{
+				font-weight:bold;
+			}
+			.controlsOverlay {
+				display:none;
+				z-index:9999;
+				position:absolute;
+				top:0px;
+				left:0px;
+				width:100%;
+				height:100%;
+				text-align:center;
+				background:rgba(255,255,255,0.95);
+				border-radius:4px
+			}
+			#promptOverlay {
+				overflow:hidden;
+			}
+			#workingOverlay {
+				color:#459B45;
+				font-size:1.5em;
+			}
+			#workingOverlay ul {
+				display:inline-block;
+				text-align:left;
+			}
+			#workingOverlayContainer {
+				position:relative;
+				top:0px;
+				left:0px;
+			}
+
+			.instanceIframe {
+				display:none;
+				position:fixed;
+				top:0px;
+				left:0px;
+				right:0px;
+				width:100%;
+				border:none;
+				margin:0;
+				padding:0;
+				z-index:999999;
+			}
+
+			div.instanceIframe {
+				height:50px;
+				overflow:hidden;
+				background:#000;
+				color:#fff;
+			}
+
+			iframe.instanceIframe {
+				top:50px;
+				bottom:0px;
+				height:100%;
+				overflow:auto;
+				background:#fff;
+			}
+
+			.promptBox {
+				position:relative;
+				top:-100%;
+				display:inline-block;
+				max-height:96%;
+				/*padding:15px;
+				margin:auto;
+				border: 2px solid #ccc;
+				border-radius:4px;
+				background-color:#fff;
+				background-image: linear-gradient(to bottom,#f5f5f5 0,#ffffff 100%);
+				background-repeat: repeat-x;
+				box-shadow: inset 0 1px 3px rgba(0,0,0,.05), 0 1px 0 rgba(255,255,255,.1);
+				*/
+			}
+		</style>
+
+		<script>
+
+			var g_autoTerminateBad3D = false,
+			 	g_oneTimeTerminateBad3D = false,
+			 	g_noPromptBad3D = false,
+				g_maxRespawnAttempts = 12,
+				g_respawnAttemptCount = 0,
+				g_relaunchInstanceParams = {},
+				g_logParent = null;
+
+		function setMenuName(dropDownId, name, value){
+			var $dropDownBtn = $('#' + dropDownId);
+			$dropDownBtn.data('value', value);
+			$dropDownBtn.html(name + " <span class=\"caret\"></span>");
+
+			switch (dropDownId) {
+				case "modelsButton":
+					$('#startButton').prop('disabled', false);
+					$('#deleteModelBtn').prop('disabled', false);
+					break;
+				case "instancesButton":
+					$('#terminateInstanceBtn').val("Terminate Instance");
+					$('#connectInstanceBtn').prop('disabled', false);
+					break;
+			}
+		}
+
+		function hideNotification(element) {
+			setTimeout(function() {
+				$(element).fadeTo(1000, 0).slideUp(1000, function(){
+					$(this).remove();
+				});
+			}, 5000);
+		}
+
+		function updateAvailableModels() {
+			$('#startButton').prop('disabled', true);
+			$.ajax("webserver.dll?availablemodels").done(function(data) {
+				var newHtml = "";
+				var mList = data.getElementsByTagName("modelname");
+				for (var i = 0; i < mList.length; i++) {
+					var modelName = mList[i].childNodes[0].nodeValue;
+					var fullModelName = modelName.replace(/\\/g, "\\\\");
+					var fullModelPath = fullModelName.replace(/&/g, "%26");
+					newHtml += "<li><a href=\"#\" onclick=\"setMenuName('modelsButton', '" + fullModelName + "', '" + fullModelPath + "')\">" + modelName + "</a></li>";
+				}
+				$('#modelsSelectMenu').html(newHtml);
+			});
+		}
+
+		function updateInstanceSelect() {
+			$.ajax("webserver.dll?instancelist").done(function(data) {
+				var newHtml = "";
+				var iList = data.getElementsByTagName("instance");
+
+				//disable/enable the buttons according to the current state
+				if (iList.length) {
+					$('#terminateInstanceBtn').prop('disabled', false);
+					$('#instancesButton').prop('disabled', false);
+				}
+				else {
+					$('#terminateInstanceBtn').prop('disabled', true);
+					$('#instancesButton').prop('disabled', true);
+				}
+				selectInstanceButtonVal = $('#instancesButton').data('value');
+				if (typeof selectInstanceButtonVal == "string" && selectInstanceButtonVal.length)
+					$('#connectInstanceBtn').prop('disabled', false);
+				else
+					$('#connectInstanceBtn').prop('disabled', true);
+
+				//loop over all the available instances and create the dropdown list
+				for (var i = 0; i < iList.length; i++) {
+					var instanceName = iList[i].childNodes[0].childNodes[0].nodeValue;
+					var instanceNum = iList[i].childNodes[1].childNodes[0].nodeValue;
+					var instanceValue = instanceName.replace(/&/g, "%26") + "&instancenum=" + instanceNum;
+					var instanceName = instanceName + " instance " + instanceNum;
+					var fullInstanceName = instanceName.replace(/\\/g, "\\\\");
+					var fullInstanceValue = instanceValue.replace(/\\/g, "\\\\");
+					newHtml += "<li><a href=\"#\" data-instancevalue=\"" + fullInstanceValue + "\" onclick=\"setMenuName('instancesButton', '" + fullInstanceName + "', '" + fullInstanceValue + "')\">" + instanceName + "</a></li>";
+				}
+				$('#instanceSelectMenu').html(newHtml);
+			});
+		}
+
+		function checkConfiguration() {
+			$.ajax("webserver.dll?configuration").done(function(data) {
+				var modelUploading = data.getElementsByTagName("modeluploading");
+				var modelDeleting = data.getElementsByTagName("modeldeleting");
+				if (modelDeleting[0].childNodes[0].nodeValue == 'yes')
+					$('#deleteModelBtn').show();
+				if (modelUploading[0].childNodes[0].nodeValue == 'yes')
+					$('#uploadModels').css('display', 'block');
+			});
+		}
+
+
+		function updateLists() {
+			updateAvailableModels();
+			updateInstanceSelect();
+			checkConfiguration();
+		}
+
+		function updateAvailableModelsWhenUploaded() {
+			var invisible = $('#invisibleIFrame')[0];
+			var responsedoc = invisible.document || invisible.contentWindow.document;
+			var statusNodes = responsedoc.getElementsByTagName("status");
+
+			if (statusNodes.length == 1) {
+				var returnVal = statusNodes.item(0).childNodes[0].nodeValue;
+				var notification = document.createElement('div');
+				if (returnVal == "tooLarge") {
+					notification.className = "alert alert-danger fade in";
+					notification.innerHTML = "<strong>Upload Failed</strong> Model file size is too large.";
+				} else if (returnVal == "success") {
+					notification.className = "alert alert-success fade in";
+					notification.innerHTML = "<strong>Upload Suceeded</strong>";
+					updateAvailableModels();
+				} else { //Fail
+					notification.className = "alert alert-danger fade in";
+					notification.innerHTML = "<strong>Upload Failed</strong>";
+				}
+				$('#uploadModels').append(notification);
+				hideNotification(notification);
+				$('#uploadModelBtn').prop('disabled', false);
+			} else
+				setTimeout("updateAvailableModelsWhenUploaded()", 100);
+		}
+		function imageExists(image_url){
+			var xhr = new XMLHttpRequest(),
+				info = {"status":0, "response":""};
+			xhr.open('GET', image_url, false);
+			xhr.send();
+			return xhr;
+		}
+
+		function startPressed() {
+			var model = $('#modelsButton').data('value'),
+				logEntry = addLogEntry("launching instance of ["+model+"]"+(g_respawnAttemptCount?" (relaunch attempt "+g_respawnAttemptCount+")":"")+"...");
+			$.ajax("webserver.dll?createinstance=" + model, {
+				beforeSend: function(jqXHR, settings) {
+					$('#startButton').prop('disabled', true);
+					toggleWorkingOverlay("<p>Starting new instance"+(g_respawnAttemptCount?" - relaunch attempt "+g_respawnAttemptCount:"")+"<br><span style='font-size:75%;white-space:nowrap;'>["+model+"]</span></p>");
+				},
+				success: function(data, textStatus, jqXHR) {
+					var
+						xmlText = jqXHR.responseText,
+						xmlDoc = $.parseXML(xmlText),
+						xmlObj = $(xmlDoc),
+						status = xmlObj.find('status').text(),
+						reason = xmlObj.find('reason').text();
+
+					if (status == "success") {
+						var instanceNumber = xmlObj.find('instancenum').text(),
+							currTime = (new Date()).getTime(),
+							url_testImage = "webserver.dll?queryinstance="+encodeURIComponent(model)+"&instancenum="+instanceNumber+"&screenshot=1&time="+currTime,
+							imgXHR = imageExists(url_testImage),
+							target = "newImg"+currTime,
+							bad3D = true;	//default to true, set as false upon success
+/*
+						console.log(JSON.stringify({
+							"readyState"			: imgXHR.readyState,
+							"response"				: imgXHR.response.length,
+							"responseText"			: imgXHR.responseText.length,
+							//"responseType"			: imgXHR.responseType,
+							//"responseURL"			: imgXHR.responseURL,
+							//"responseXML"			: imgXHR.responseXML,
+							"status"				: imgXHR.status,
+							//"timeout"				: imgXHR.timeout,
+							//"getAllResponseHeaders"	: imgXHR.getAllResponseHeaders(),
+							"Content-Type"			: imgXHR.getResponseHeader("Content-Type"),
+							"Content-Length"		: imgXHR.getResponseHeader("Content-Length")
+						}));
+*/
+						//update the log
+						logEntry.append(" instance ["+instanceNumber+"] launched"+
+							(imgXHR.status==200?
+								" <a href='"+url_testImage+"' data-featherlight='image' target='"+target+"'>["+imgXHR.status+"]</a>"
+								:" ["+imgXHR.status+"]"
+							)
+						);
+						$('a[target="'+target+'"]').featherlight();
+
+						//if instance unable to generate a 3D view (server did not return 200), it probably didn't get the OpenGL context it needs.
+						if (imgXHR.status != 200)
+							logEntry.append(", <i>ERROR:</i> GET 3D server fault");
+						//if instance unable to generate a 3D view (server did not return a valid png)...
+						else if (imgXHR.getResponseHeader("Content-Type") != "image/png")
+							logEntry.append(", <i>ERROR:</i> no 3D image");
+						//if instance unable to generate a 3D view (server did not return any data)...
+						else if (imgXHR.getResponseHeader("Content-Length") <= 10 && imgXHR.getResponseHeader("Transfer-Encoding") != "chunked")
+							logEntry.append(", <i>ERROR:</i> no 3D image data");
+						//else instance can properly generate 3D views
+						else {
+							bad3D = false;
+							logEntry.append(" successfully");
+						}
+
+						//if there was a bad 3D result, and user hasn't asked to stop being bugged...
+						if (bad3D && !g_noPromptBad3D) {
+							//Prompt for retry.
+							g_relaunchInstanceParams = {"logEntry":logEntry, "model":model, "instanceNumber":instanceNumber};
+							relaunchInstance();							
+						}
+						//else we are keeping this instance
+						else {
+							updateInstanceSelect();
+							toggleWorkingOverlay();
+							//reset the auto respawn counter
+							g_respawnAttemptCount = 0;
+							//reset the log parent so that new log entries are added at the base level
+							g_logParent = null;
+						}
+					}
+					else {
+						logEntry.append(" <i>ERROR:</i> "+status+(reason.length?":<i>"+reason+"</i>":""));
+						alert("Failed to start instance on the server.");
+						toggleWorkingOverlay();
+						//reset the auto respawn counter
+						g_respawnAttemptCount = 0;
+					}
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					logEntry.append(" <i>ERROR:</i> server fault: "+JSON.stringify({"jqXHR":jqXHR, "textStatus":textStatus, "errorThrown":errorThrown}));
+					toggleWorkingOverlay();
+					//reset the auto respawn counter
+					g_respawnAttemptCount = 0;
+				},
+				complete: function(jqXHR, textStatus) {
+					$('#startButton').prop('disabled', false);
+				}
+			});
+		}
+
+
+
+		function relaunchInstance() {
+			//g_relaunchInstanceParams = {"logEntry":logEntry, "model":model, "instanceNumber":instanceNumber};
+
+			//if we don't yet have permission to attempt a relaunch, let's ask the user
+			if (!g_autoTerminateBad3D && !g_oneTimeTerminateBad3D)
+				return togglePromptOverlay("alert_bad3d_relaunchInstance");
+
+			//if we're currently in a relaunch loop, and we've reached the limit, prompt the user
+			if (g_autoTerminateBad3D && g_respawnAttemptCount >= g_maxRespawnAttempts) {
+				g_autoTerminateBad3D = false;
+				g_respawnAttemptCount = 0;
+				return togglePromptOverlay("alert_bad3d_relaunchLoopDetect");
+			}
+
+			//in case of getting in via the one time flag, we'll set the flag to false for next time
+			g_oneTimeTerminateBad3D = false;
+			var attemptRespawn = true;
+
+			//if we get this far, it's time to terminate the bad instance and attempt auto relaunch
+			g_respawnAttemptCount++;
+			g_relaunchInstanceParams.logEntry.append(", terminating instance and re-launching...");
+
+			//if we're just starting an auto-relaunch series, set g_logParent
+			if (g_autoTerminateBad3D && !g_logParent)
+				g_logParent = $('<ul></ul>').appendTo(g_relaunchInstanceParams.logEntry);
+
+			//passing noop for the complete callback to prevent it using the default terminateInstance callback
+			terminateInstance(
+				g_relaunchInstanceParams.model+"&instancenum="+g_relaunchInstanceParams.instanceNumber,
+				{"success":startPressed, "complete":function() {
+					$('#instancesButton').html("Select Instance <span class=\"caret\"></span>");
+					updateInstanceSelect();
+					$('#terminateInstanceBtn').prop('disabled', false).val("Terminate All");
+				}}
+			);
+		}
+
+		function deletePressed() {
+			var modelName = $('#modelsButton').data('value');
+			togglePromptOverlay("prompt_deleteModel", {"beforeBounce":function(alertId, promptBox) {
+				promptBox.find('.deleteModel').text(modelName).css('fontStyle', 'italic');
+				promptBox.find('input[data-modelname]').data("modelname", modelName)
+			}});
+		}
+
+
+		function deleteModel(modelName, callbacks) {
+			//default to an empty callbacks obj if invalid callbacks param was received
+			callbacks = callbacks || {};
+
+			var logEntry = addLogEntry("deleting ["+modelName+"] from server...");
+
+			//set some default callbacks, if not already defined
+			callbacks.beforeSend = callbacks.beforeSend || function() {
+				$('#deleteModelBtn').prop('disabled', true);
+				$('#startButton').prop('disabled', true);
+				toggleWorkingOverlay("<p>Deleting model from server<br><span class='default' style='font-size:75%;white-space:nowrap;'>["+modelName+"]</span></p>");
+			};
+			callbacks.complete = callbacks.complete || function() {
+				toggleWorkingOverlay();
+			};
+
+			$.ajax("webserver.dll?deletemodel=" + modelName, {
+				beforeSend: function(jqXHR, settings) {
+					if (typeof callbacks.beforeSend == "function")
+						callbacks.beforeSend(jqXHR, settings, modelName);
+				},
+				success: function(data, textStatus, jqXHR) {
+					if (data.getElementsByTagName("status")[0].textContent == "success") {
+						logEntry.append(" successfully deleted model");
+						$('#modelsButton').html("Select Model <span class=\"caret\"/>");
+						updateAvailableModels();
+					} else {
+						logEntry.append("<i>ERROR:</i> unable to delete model");
+						alert("ERROR: Unable to delete the selected model on the server.\n\n"+JSON.stringify({"data":data, "textStatus":textStatus, "jqXHR":jqXHR}));
+					}
+					if (typeof callbacks.success == "function")
+						callbacks.success(data, textStatus, jqXHR, modelName);
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					logEntry.append(" <i>ERROR:</i> server fault: "+JSON.stringify({"jqXHR":jqXHR, "textStatus":textStatus, "errorThrown":errorThrown}));
+					if (typeof callbacks.error == "function")
+						callbacks.error(jqXHR, textStatus, errorThrown, modelName);
+				},
+				complete: function(jqXHR, textStatus) {
+					if (typeof callbacks.complete == "function")
+						callbacks.complete(jqXHR, textStatus, modelName);
+				}
+			});
+		}
+
+
+		function closeInstanceIframe(newTab) {
+			var iframe = $('iframe.instanceIframe'),
+				modelName = iframe.data('model'),
+				instanceNumber = iframe.data('instance');
+			$('.instanceIframe').fadeOut(500, function() { iframe.remove(); });
+			logEntry = addLogEntry("closed local view ["+modelName+", instance number "+instanceNumber+"]");
+			if (newTab)
+				addLogEntry("opening external view in new tab ["+modelName+", instance number "+instanceNumber+"]");
+		}
+
+		function connectPressed() {
+			var instance = $('#instancesButton').data('value');
+			if (instance) {
+				var
+					instanceUrl = "webserver.dll?queryinstance=" + instance + "&defaultpage&dashboardstats=1",
+					instanceInfo = instance.split("&instancenum="),
+					logEntry = addLogEntry("opening local view ["+instanceInfo[0]+", instance number "+instanceInfo[1]+"]");
+				$('body').append('<iframe data-model="'+instanceInfo[0]+'" data-instance="'+instanceInfo[1]+'" class="instanceIframe" src="'+instanceUrl+'">Your browser doesn\'t support iframes</iframe>');
+
+				$('#instanceIframe-name').html(instanceInfo[0]);
+				$('#instanceIframe-num').html(instanceInfo[1]);
+				$('a.instanceIframe-button').attr('href', instanceUrl).attr('target', 'instanceView'+(new Date()).getTime());
+
+				$('div.instanceIframe').fadeIn(500, function() {$('iframe.instanceIframe').slideDown(500)});
+			}
+		}
+
+		function terminatePressed() {
+			//try to get the instance from the instance selector
+			instance = $('#instancesButton').data('value');
+
+			//if there was an instance selected, just terminate that one
+			if (instance)
+				return terminateInstance(instance);
+
+			//else no instance is selected for termination. Prompt user to terminate all instances.
+			togglePromptOverlay("alert_terminateAll");
+		}
+
+		function terminateAllInstances(callbacks) {
+			var logEntry = addLogEntry("terminating all instances...<ul></ul>"),
+				instanceList = $('#instanceSelectMenu a'),
+				instanceCount = instanceList.length,
+				instancesTerminatedCount = 0;
+			//set the global logParent so that log entries added during this terminate-all will be added to the sublist
+			g_logParent = logEntry.find('ul');
+
+			//clear and disable the select instances button
+			$('#instancesButton').data('value', '');
+			$('#terminateInstanceBtn').prop('disabled', true);
+
+			//initialize the busy overlay
+			toggleWorkingOverlay("<p>Terminating all instances</p><ul></ul>");
+
+			//add each instance to the popup list
+			$.each(instanceList, function() {
+				var instance = $(this).data('instancevalue');
+				$('#workingContent ul').append(
+					"<li class='"+window.btoa(instance)+
+						"' style='font-size:75%;white-space:nowrap;'>["+instance+"]</li>");
+			});
+			//center the popupulated popup list
+			vCenterWorkingOverlay();
+
+			//default to an empty callbacks obj if invalid callbacks param was received
+			callbacks = callbacks || {};
+			//add a custom beforeSend callback
+			callbacks.beforeSend = function() {
+				$('#instancesButton').data('value', '');
+				$('#terminateInstanceBtn').prop('disabled', true);
+			};
+			//add a custom complete callback
+			callbacks.complete = function(jqXHR, textStatus, instance) {
+				//instance termination just completed. Find out what happened
+				var
+					xmlText = jqXHR.responseText,
+					xmlDoc = $.parseXML(xmlText),
+					xmlObj = $(xmlDoc),
+					status = xmlObj.find('status').text(),
+					reason = xmlObj.find('reason').text(),
+					completeCount = 0;
+				if (status=="success")
+					status = "terminated";
+				//update the overlay with current multi-terminate status
+				$('#workingContent ul').find('li.'+window.btoa(instance).replace(/([:\.\[\],=@])/g, "\\$1"))
+					.append(" - "+status);
+
+				//terminate the next instance that has not yet had terminateInitiated set
+				instanceList.each(function(index) {
+					if ($(this).data('terminateInitiated')!==true) {
+						//store the fact that this in instanceList is being handled
+						$(this).data('terminateInitiated', true);
+						terminateInstance($(this).data('instancevalue'), callbacks);
+						return false;	//break out of the each loop
+					}
+					completeCount++;
+				});
+				
+				//if all instances are now terminated, cleanup notifiers
+				if (completeCount>=instanceCount) {
+					g_logParent = null;
+					$('#terminateInstanceBtn').prop('disabled', false).val("Terminate All");
+					toggleWorkingOverlay();
+					$('#instancesButton').html("Select Instance <span class=\"caret\"></span>");
+					updateInstanceSelect();
+				}
+
+			};
+
+			//store the fact that the first thing in instanceList is being handled
+			instanceList.first().data('terminateInitiated', true);
+			terminateInstance(instanceList.first().data('instancevalue'), callbacks);
+		}
+
+		function terminateInstance(instance, callbacks, auxLog) {
+			//catch bad input
+			if (!instance)
+				return addLogEntry("unable to terminate invalid instance "+JSON.stringify(instance));
+
+			//default to an empty callbacks obj if invalid callbacks param was received
+			callbacks = callbacks || {};
+
+			//any messages to add to an existing log entry?
+			if (auxLog)
+				auxLog.entry.append(auxLog.message);
+
+			//add a new log entry for this termination attempt
+			var logEntry = addLogEntry("terminating ["+instance+"]...");
+
+			//set some default callbacks, if not already defined
+			callbacks.beforeSend = callbacks.beforeSend || function() {
+				$('#instancesButton').data('value', '');
+				$('#terminateInstanceBtn').prop('disabled', true);
+				toggleWorkingOverlay("<p>Terminating instance<br><span class='default' style='font-size:75%;white-space:nowrap;'>["+instance+"]</span></p>");
+			};
+			callbacks.complete = callbacks.complete || function() {
+				$('#instancesButton').html("Select Instance <span class=\"caret\"></span>");
+				updateInstanceSelect();
+				$('#terminateInstanceBtn').prop('disabled', false).val("Terminate All");
+				toggleWorkingOverlay();
+			};
+
+			$.ajax("webserver.dll?terminateinstance=" + instance, {
+				beforeSend: function(jqXHR, settings) {
+					if (typeof callbacks.beforeSend == "function")
+						callbacks.beforeSend(jqXHR, settings, instance);
+				},
+				success: function(data, textStatus, jqXHR) {
+					var
+						xmlText = jqXHR.responseText,
+						xmlDoc = $.parseXML(xmlText),
+						xmlObj = $(xmlDoc),
+						status = xmlObj.find('status').text(),
+						reason = xmlObj.find('reason').text();
+					logEntry.append(" "+status+(reason.length?":<i>"+reason+"</i>":""));
+					if (typeof callbacks.success == "function")
+						callbacks.success(data, textStatus, jqXHR, instance);
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					logEntry.append(" <i>ERROR:</i> server fault: "+JSON.stringify({"jqXHR":jqXHR, "textStatus":textStatus, "errorThrown":errorThrown}));
+					if (typeof callbacks.error == "function")
+						callbacks.error(jqXHR, textStatus, errorThrown, instance);
+				},
+				complete: function(jqXHR, textStatus) {
+					if (typeof callbacks.complete == "function")
+						callbacks.complete(jqXHR, textStatus, instance);
+				}
+			});
+		}
+
+
+		function submitPressed() {
+			$('#upload').submit();
+			updateAvailableModelsWhenUploaded();
+			$('#uploadModelBtn').prop('disabled', true);
+		}
+
+
+		function addLogEntry(content, id, parent) {
+			//if there was a parent string passed in, get the list under that selector
+			if (typeof parent == "string")
+				parent = $(parent).find('ul');
+			//if there was a passed in parent, that is the priority.
+			// else if there is a global g_logParent, that is secondary
+			// finally, the fallback is the default log list
+			parent = parent || g_logParent || $('div.log>ul');
+
+			var li = $("<li style='display:none;'"+(id?" id='"+id+"'":"")+">"+content+"</li>").appendTo(parent).slideDown();
+			$("div.log").animate({ scrollTop: $('div.log').prop("scrollHeight")});
+			return li;
+		}
+
+		function toggleWorkingOverlay(content) {
+			//close any opened dropdown selectors
+			$('div.dropdown').removeClass("open");
+
+			var workingOverlay = $('#workingOverlay');
+
+			//if there is no content for the working/busy overlay, we're closing it
+			if (typeof content == "undefined" || !content.length)
+				return workingOverlay.fadeOut();
+
+			//else, set the new content
+			$('#workingContent').html(content);
+			//if the working content is already visible, just adjust the centering
+			if (workingOverlay.is(':visible'))
+				return vCenterWorkingOverlay();
+
+			//if we need to bring up the overlay, first set the spinner to default, center the content, and bring up the overlay
+			workingOverlay.find('div.spinner').removeClass("spinner-medium spinner-small").addClass("spinner-large").show();
+			workingOverlay.css({opacity:0.01,display:"block"}).each(function() {
+				vCenterWorkingOverlay();
+			}).css({display:"none",opacity:1}).fadeIn(500);
+		}
+
+		function vCenterWorkingOverlay() {
+			var maxSpinnerSize = 66,
+				minSpinnerSize = 22,
+				overlay = $('#workingOverlay'),
+				//default the spinner to the large size
+				spinner = overlay.find('div.spinner').css({width:maxSpinnerSize,height:maxSpinnerSize}).show(),
+				container = $('#workingOverlayContainer'),
+				workingContent = $('#workingContent'),
+				overlayH = overlay.outerHeight(),
+				containerH = container.outerHeight(),
+				heightOverage = containerH - 0.95*overlayH;
+
+			//remove any previous spinner-aux elements there may have been.
+			workingContent.find('.spinner-aux').remove();
+
+			//if the amount of space that can be saved by shrinking the spinner is not
+			// adequate to create the needed vertical space...
+			if (heightOverage > (maxSpinnerSize-minSpinnerSize)) {
+				//can't use the spinner at all. Just put a small one inline with the workingContent
+				spinner.hide();
+				workingContent.find('p').first().prepend('<span class="spinner spinner-aux" style="margin-right:6px;position:relative;top:3px;width:'+minSpinnerSize+'px;height:'+minSpinnerSize+'px"></span>');
+			}
+			//else shrinking the spinner to somewhere between its max and min size is adequate to
+			// create the needed vertical space...
+			else if (heightOverage > 0) {
+				var spinSize = maxSpinnerSize-heightOverage;
+				spinner.css({width:spinSize,height:spinSize});
+			}
+			//recalculate working overlay height and overage
+			containerH = container.outerHeight();
+			heightOverage = containerH - 0.95*overlayH;
+
+
+			//if the container is still taller than the overlay...
+			if (heightOverage > 0) {
+				//are there any lists we can try to resize?
+				var list = container.find('li');
+				if (list.length) {
+					var fontSize = parseInt(list.css('fontSize'));
+					while (heightOverage > 0 && fontSize > 9) {
+						list.css('fontSize', (fontSize*=0.9)+'px');
+						containerH = container.outerHeight();
+						heightOverage = containerH - 0.95*overlayH;
+					}
+				}
+
+				//if we're still too tall, just set it to the top and be done with it
+				if (heightOverage > 0)
+					return container.css({top:"0px"});
+			}
+
+			//vertically center the container in the working overlay
+			container.animate({top:(overlayH-containerH)/2}, {duration: 200});
+		}
+
+
+		function togglePromptOverlay(alertId, callbacks) {
+			callbacks = callbacks || {};
+			//if no prompt was passed in, turn off any active prompts...
+			if (typeof alertId == "undefined" || !alertId.length)
+				return $('#promptOverlay').fadeOut();
+
+			//Else we need to display a prompt...
+			//close any opened dropdown selectors
+			$('div.dropdown').removeClass("open");
+			//reset all prompt boxes
+			$('.promptBox').each(function() {
+				$(this).css({top:'-100%',display:"none"});
+			});
+			//animate the specified promptBox into view
+			if (typeof callbacks.beforeFadeIn == "function")
+				callbacks.beforeFadeIn(alertId);
+			$('#promptOverlay').fadeIn(300, function() {
+				var overlayHeight = $('#promptOverlay').outerHeight(),
+					promptBox = $('#'+alertId).show(),
+					promptBoxHeight = promptBox.outerHeight();
+				if (typeof callbacks.beforeBounce == "function")
+					callbacks.beforeBounce(alertId, promptBox);
+				promptBox.animate({top:(overlayHeight-promptBoxHeight)/2}, {duration: 700, easing: 'easeOutBounce'});
+			});
+		}
+
+		window.onload = updateLists;
+		</script>
+
+
+	</head>
+	<body>
+		<div class="container">
+			<img id="logo" src="flexsimweb/images/bannerLogo_problemSolved.png" class="logo"/>
+			<div class="well text-center" style="position:relative;">
+				<div id="workingOverlay" class="controlsOverlay">
+					<div id="workingOverlayContainer">
+						<div class="spinner"></div>
+						<div id="workingContent"></div>
+					</div>
+				</div>
+				<div id="promptOverlay" class="controlsOverlay">
+					<div class="promptBox well" id="prompt_deleteModel">
+						<p>Are you sure you want to delete the model</p>
+						<p class="deleteModel"></p>
+						<p>completely from the server?</p>
+						<input type="button" class="btn btn-danger" data-modelname="" value="Yes, delete model" onclick="deleteModel($(this).data('modelname'));togglePromptOverlay()" />
+						<input type="button"class="btn btn-primary" value="Cancel" onclick="togglePromptOverlay()" />
+					</div>
+					<div class="promptBox well" id="alert_terminateAll">
+						<p>You are about to terminate all instances.</p>
+						<p>Do you wish to proceed?</p>
+						<input type="button" class="btn btn-danger" value="Yes, terminate all instances" onclick="terminateAllInstances();togglePromptOverlay()" />
+						<input type="button"class="btn btn-primary" value="Cancel" onclick="togglePromptOverlay()" />
+					</div>
+					<div class="promptBox well" id="alert_bad3d_relaunchInstance">
+						<p>The new instance can't generate 3D views.</p>
+						<p>Would you like to terminate this instance and relaunch?</p>
+						<input type="button" class="btn btn-primary" value="Yes, always relaunch automatically" onclick="g_autoTerminateBad3D=true;relaunchInstance();togglePromptOverlay()" />
+						<input type="button" class="btn btn-success" value="Just this time" onclick="g_oneTimeTerminateBad3D=true;relaunchInstance();togglePromptOverlay()" />
+						<input type="button" class="btn btn-warning" value="Keep this instance" onclick="g_respawnAttemptCount=0;updateInstanceSelect();toggleWorkingOverlay();togglePromptOverlay()" />
+						<input type="button" class="btn btn-danger" value="Always keep it" onclick="g_respawnAttemptCount=0;g_noPromptBad3D=true;updateInstanceSelect();toggleWorkingOverlay();togglePromptOverlay()" />
+					</div>
+					<div class="promptBox well" id="alert_bad3d_relaunchLoopDetect">
+						<p>
+							The maximum number of relaunch attempts have failed.<br>
+							Your server may be unable to launch FlexSim with a 3D view.
+						</p>
+						<p>
+							Upgrading your server's graphics hardware could solve the problem.<br>
+							FlexSim recommends NVIDIA GeForce GTX graphics.<br>
+							<a href="https://answers.flexsim.com/" target="answers">Contact FlexSim</a> with any questions.
+						</p>
+						<p>Continue relaunch attempts in hope of getting an instance with working 3D?</p>
+						<input type="button" class="btn btn-success" value="Yes, keep trying" onclick="g_autoTerminateBad3D=true;relaunchInstance();togglePromptOverlay()" />
+						<input type="button" class="btn btn-danger" value="Quit relaunching" onclick='terminateInstance(g_relaunchInstanceParams.model+"&instancenum="+g_relaunchInstanceParams.instanceNumber, null, {"entry":g_relaunchInstanceParams.logEntry, "message":", terminating instance"});togglePromptOverlay();g_logParent=null;' />
+					</div>
+				</div>
+				<div id="controlInterface" class="text-left" style="display: inline-block;">
+					<section>
+						<h4>Available Models</h4>
+						<div class="dropdown">
+							<button id="modelsButton" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+								Select Model <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" role="menu" id="modelsSelectMenu" style="top: initial;">
+							</ul>
+
+							<input type="button" id="startButton" class="btn btn-success" value="Start New Instance" onclick="startPressed()" disabled />
+							<input type="button" id="deleteModelBtn" class="btn btn-danger" value="Delete Model From Server" onclick="deletePressed()" style="display:none;" disabled />
+						</div>
+					</section>
+					<section>
+						<h4>Running Model Instances</h4>
+						<div class="dropdown">
+							<button id="instancesButton" class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">
+								Select Instance <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu" id="instanceSelectMenu" style="top: initial;">
+							</ul>
+
+							<input type="button" id="connectInstanceBtn" class="btn btn-success" value="Connect To Instance" onclick="connectPressed()" disabled/>
+							<input type="button" id="terminateInstanceBtn" class="btn btn-danger" value="Terminate All" onclick="terminatePressed()" />
+						</div>
+					</section>
+					<section id="uploadModels" style="display:none;">
+						<h4>Upload a model</h4>
+						<form id="upload" enctype="multipart/form-data" encoding="multipart/form-data" action="webserver.dll?uploadmodel" method="POST" target="invisibleIFrame">
+							<input class="btn btn-default" name="uploadModel" type="file" style="width:100%"/>
+							<input type="button" id="uploadModelBtn" class="btn btn-default" value="Upload" onclick="submitPressed()" style="margin-top:5px"/>
+						</form>
+						<iframe id="invisibleIFrame" name="invisibleIFrame"></iframe>
+					</section>
+				</div>
+			</div>
+			<p class="log" style="font-size:80%;"><a href="javascript:$('.log').slideToggle();">show log</a></p>
+			<p class="log" style="font-size:80%;display:none;"><a href="javascript:$('.log').slideToggle();">hide log</a><a style="margin-left:20px;" href="javascript:$('div.log ul').empty();">clear log</a></p>
+			<p class="log" style="font-size:80%;display:none;"></p>
+			<div class="log" id="activityLog" style="font-size:80%;border-radius:4px;color:#999;border:solid 1px #dcdcdc;padding:10px;display:none;max-height:360px;overflow-x:hidden;overflow-y:auto;">
+				<ul style="padding-left:12px;"></ul>
+			</div>
+		</div>
+		<div class="instanceIframe">
+			<div class="instanceIframe-button" onclick="closeInstanceIframe()" title="Close instance view. Back to server control." alt="Close instance view. Back to server control." style="float:left;background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAMAAAC5zwKfAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjRERkZGRjhCRTRERDExRTZBRjg3Q0E3ODYzM0VBN0Y2IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjRERkZGRjhDRTRERDExRTZBRjg3Q0E3ODYzM0VBN0Y2Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NERGRkZGODlFNEREMTFFNkFGODdDQTc4NjMzRUE3RjYiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NERGRkZGOEFFNEREMTFFNkFGODdDQTc4NjMzRUE3RjYiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz71WbmqAAABblBMVEX///8BAQEFBQX19fXT09MAAAACAgIEBAQHBwcPDw8DAwMGBgYJCQl8fHwLCwsSEhLi4uLn5+eGhoaHh4fY2Ni7u7tpaWlqamqsrKwODg4ICAgMDAx2dnaqqqqenp7j4+Pm5uaOjo7Ly8uNjY3U1NRlZWWampqvr6/AwMDExMSBgYHc3NzPz8++vr7BwcFsbGzFxcVoaGjg4OC5ubmioqJgYGCKioqCgoLX19ekpKRxcXFJSUkeHh5/f38QEBBISEiTk5Pp6elubm61tbWZmZl7e3tFRUWzs7PV1dW2trZnZ2ff3999fX1jY2PGxsampqZaWlpvb2+EhISUlJSWlpaQkJDS0tJKSkrNzc2fn5+FhYWRkZENDQ3Z2dmLi4tycnIUFBS8vLw6OjqDg4Py8vLQ0NB0dHSjo6OJiYl5eXn39/cTExPIyMi3t7f9/f2np6d3d3eIiIjo6OjMzMxhYWGwsLCoqKjd3d2YmJgAAADfxMe3AAAAenRSTlP/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AOg/6CYAAAI5SURBVHjarNnnV9RAFAXwmZVJshURYXUt2CmKClgRxd577733rve/10XA97KLZnPf/ZiT8zsvmck7MxOHTPGDY9luhMvm9br304ZgWO9+54YZGO67mewzAsNL57KL/wf9JzefaQMw9DqRxzQYlkivq8iC4bb0nlXYRw6Xpbehwg5K2C29kzV62oyo+mr0xN4vvaU1+tNT3r0VbHMIZ1V9Wb2Fwar09mT2FgS1VwMLvpLe5rtgwY/S+7EcLLhSjUdHXltQeWc689qBz6U3XgQLPpDe4k69VnBSjW/HXgs4ydXXAl6S3sABsOBhVV8eT4PbpLemCBbUXjdYsC69npyeAPtNvL+g8g69AQtuVN5DsKDyxrvBguek93kq+PyZAXdKzz0dvt6VP03wq7NMuj4evGjruaqx5/Zag+GYMYgwYgymlpUGIPBEXXnds4jIn09PLfUHpkqF/HFtNg9bE7o5pLY3Wyo0iLDLSJzv2Fq82aDB2U3xXL40aBB+rRTXNWgwLSY0CH9NitsTGoS/I8W3CQ3CH5Ti+YQGU+JQmQbhr3DvsXWN7a9KcbhMg/A/Vaco0yD8USk+KtMg/CYpjpZpMCUOFWgQ/pYU+2IahF8txYkCDSJSYl+BBhHtyCX+41REixMxDSJ6IcUjMQ0iUiupdzENIvogxVMxDSK6IMVvMQ0i+i7FEwkNIlolxeMGh7olIZ4OFsfOpWVz3hg/KErsNzu6Lw02vbrhz4VmjXUYgohHqxmbwy8BBgDkU3g3yU6fAAAAAABJRU5ErkJggg==')"></div>
+			<div style="margin:15px;float:left;">
+				<img style="vertical-align:center;margin-right:8px" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACEAAAAUCAMAAAA0jaRDAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjQ4MzdCMTU3RTREQzExRTZBREM5REVGOTcyNDQxMEY3IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjQ4MzdCMTU4RTREQzExRTZBREM5REVGOTcyNDQxMEY3Ij4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6NDgzN0IxNTVFNERDMTFFNkFEQzlERUY5NzI0NDEwRjciIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6NDgzN0IxNTZFNERDMTFFNkFEQzlERUY5NzI0NDEwRjciLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz50EPJiAAACIlBMVEX////AoG/+/v7AoHADAwKIck8GBgaReVRPQi4eGRG+nm5wcHAHBwewsLBzYEOampqbm5vExMR8fHy0lmiNjY2ojGE1NTUsJRo7OzsCAgETEAuylGfNzc1TU1OmpqYUEAtANSXx8fH09PQdGBHj4+NLPywyLilKPSthYWHm5ua6l2NjV0RgYGAXFxeFbkucgFW6mGKHh4d5ZEW7mWQWFhbs7OxGRkZCQkILCwsCAQG9nGmOdExra2tYSTNbTDVnUjMUFBSGcE0wKBxJQTWdglm8mma+nWu/n236+vpsbGyxk2YrJyH5+flmWEFfX1/AoG5dTjZ3Y0ULCQeSelRubm48MiMPDw4FBQTGxsYSEhJlY2CDg4MFBQVZVlG1tbUHBgTp6emfn55YVU85OTmCgoKgg1V6ZUVWVlUfGhKagFloVzxKSkpiUjuhg1ZQUFA+Pj49MyM2NjY/Pz9vXUByX0JMRDhHOyl9fX2jhVfZ2dmenp03Nze2trZGOigEBATFxcWzs7NaWFRjUzxxcXHo6OhvXEDe3t6zlWgiHBQsLCwIBgWvr68lHxVOQS0PDw9JSUk5NjJpVz2agVk6Lx83LR02LB05Lx4xMC86NzOkhVcTExP7+/tbWFRRUVFRQyxBQUEkHhXY2Ni0tLRmYl0QEA9nY14ODg7Dw8Pf398tLS1jYl9AQEBVVVTIyMhSRC3Hx8dLRDh6ZUT8/Py9nW0jHRQAAADpXsDXAAAAtnRSTlP/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////AIrmvXAAAAHISURBVHjaYtgKAh2s7BycW5EBJwc76xYwiwFE9HoxMnJNdFKQh0rLKzhlcTEyenFAVUiWMDIyTrJrlWYU5ZvctTV+Gp8oo3SxXSZQlE8SrMIylFXYMSAYKOBmkOY93dvIwA3IDg5wFGYtsITawiKlzM7I7K6lt2GxDIPM0lI9LXdmRnZlKRa4O8QDVTnV9WdqJ8UxMTAwMNXEalfoq2eoBorDVNS2MzK7TGGpW6PEAAFK6eEsU12YGYXLICpsNzMyW+U6rxISM+MFm8FrJiYU5ZxqxczIZQtSMQ/oLNeNalUMDCs8dc2XMwia69q0MTAkqhm5AmXWAVUssPY3bpqwHmy8pqdJsomNJpi9dkaOsb91D8iWIHvfRhWIA5hEeLayiTBBOCpzfO2DoH4Jq4eICVaDg7RQEMKNWAL1Cxv3/MgGoICHoQU01C0MPYD8RbNWc/OAVQgxKGZvTWFImIsUcXktDNFb+xUZykEqQoDKNzVvlZVAiVsJ2a3cs4EyIVsZNHzAdupsRQd+YHEfDYZuMEPOAUOFgxxYhpehcyGQEuDZignY+IEylSsZtuabMgiwbcUGYvgZTItAfvET6NuKHSzjBzoPIMAANeP6YjfGXP4AAAAASUVORK5CYII=">
+				<span class="instanceIframe-info" id="instanceIframe-name"></span>
+				<span class="instanceIframe-legend">instance:</span>
+				<span class="instanceIframe-info" id="instanceIframe-num"></span>
+			</div>
+			<div class="instanceIframe-button" onclick="closeInstanceIframe()" title="Close instance view. Back to server control." alt="Close instance view. Back to server control." style="float:right;background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMkAAADJCAMAAAC+GOY3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyhpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6MjMwQTM1NUNFNEQ5MTFFNkE4QzA5OTE1RDQ5NUVGN0EiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6MjMwQTM1NUJFNEQ5MTFFNkE4QzA5OTE1RDQ5NUVGN0EiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTUgKE1hY2ludG9zaCkiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDoxODA4QTczNjE4RTkxMUU1OEYyQzk5OTI4QUIyMTQ2NyIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDpEOTUzMzQzQTE4RjExMUU1OEYyQzk5OTI4QUIyMTQ2NyIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PqSgftUAAAAGUExURf///////1V89WwAAAACdFJOU/8A5bcwSgAAA+pJREFUeNrs3Vl2wzAMQ1G8/W+6K6itgQMOnfwzwm3S2BosiX9fEm6vp0h6qLKjPEbSU5UZ5TmSHqusKC+R9FxlRHmLpJcqG8prJL1VmVDeI+m1yoKyEEnvVQaUlUhaqGqnLEXSSlUzZS2SlqpaKYuRtFbVSFmNpMWqNspyJK1WNVHWI2m5qoWyEUnrVQ2UnUjaqCqnbEXSTlUxZS+StqpKKZuRtFdVSNmNpM2qMsp2JO1WFVH2I2m7qoRyEEn7VQWUk0g6qEqnHEXS2csOcv4yhNh9KscOzCjHaYQX5TyLsKJcJBFOlJscwohylUL4UO4yCBvKZQLhQrltX5hQrlsXHpT7toUFJaBl4UCJaFcYUEJaFf2UmDZFOyWoRdFNiWpPNFPCWhO9lLi2RCslsCXRSYlsRzRSQlsRfZTYNkQbJbgF0UWJfn/RRAl/d9FDiX9v0UJJeGfRQcl4X9FASXnXjkaT/jwN/5o5X9n673Ta/175TUXW72H1T2biD3txdyjvYlt7RU69aygdyMm8k6u84Uu+JS0cgs7tJtT1J9L7O2WTZ9l90KruakFnumjaP3+Ao2Y0pGSkxnjBEpkSbCHbElwhlI3l5o8x40mhQoIl5EiCI4TSmajc2TH8KFRKsIMcS3CDUD6PngW5kOAFoWGZRg7kSoIThJZVQBmQSwk+EJoWmcVDriW4QGhbwxgNCZDgAaFxiWwsJESCA4TWFdiRkCAJ/RCaF/jHQcIkdEPweX7k95n8/k+m/3aNuZ6MucaPue8acy88pn8yps84ph8/ZmxlzHjXmDHIMePCY8bqx8yfjJnTGjPPOGbud8x8/Jg1EmPWrYxZSzRmfdeYNXeSK+Wra1NPI1VQvrmG+yZOPuWLzzrcRsmmfO+ZoIgYuZSvPTsXFSGT8q1nTCObz6N86Vns6KazKN/ZsyCj2RzKV/b2SPtOZ3zSHZDyPXBSr8jxPyQ9kNK9otL7E9HXqS5I2Z5qJaMhsbdBfZCSvQfLxnIj77I7Iel7dJbORMV14nohqXvZls+jR40RdEPS9nyuhyTtw90BSdkbvQeSsF99FyT8DIE+SPC5Dp2Q0LM2eiGB5590Q8LOpOmHBJ0T5AAJObvJAxJwnpYL5PqMMx/I5blzTpCrswC9IOVrYxzPzLSD1H4qYEcZdd7voDOYB52LPeis8kHnx6/XgR3lrKcFdpSz3i/YUc5GJMCOcjZKBHaUs5E7sKOcjaaCHeVshBvsKGezDmBHOZsJAjvK2ewc2FHOZkzBjnI2iw12FNYk2EFWIr2v9gA7CusS7CDvkd5WRYEdhT0JdpC3SM+rB8GOwr4EO8hzpD8BBgAs2ljBB1Re+AAAAABJRU5ErkJggg==')"></div>
+			<a class="instanceIframe-button" href="" onclick="closeInstanceIframe(1);" style="float:right;" title="launch instance in new tab" target="new">
+				<img style="height:20px;width:20px;" alt="launch instance in new tab" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALAAAACwCAMAAACYaRRsAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNi1jMTM4IDc5LjE1OTgyNCwgMjAxNi8wOS8xNC0wMTowOTowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENDIDIwMTcgKFdpbmRvd3MpIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOkJFNUI4MzJFRTREQTExRTY5OENERTExNUQwQjMzRTQzIiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOkJFNUI4MzJGRTREQTExRTY5OENERTExNUQwQjMzRTQzIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6QkU1QjgzMkNFNERBMTFFNjk4Q0RFMTE1RDBCMzNFNDMiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6QkU1QjgzMkRFNERBMTFFNjk4Q0RFMTE1RDBCMzNFNDMiLz4gPC9yZGY6RGVzY3JpcHRpb24+IDwvcmRmOlJERj4gPC94OnhtcG1ldGE+IDw/eHBhY2tldCBlbmQ9InIiPz7vVIewAAAABlBMVEX///////9VfPVsAAAAAnRSTlP/AOW3MEoAAADHSURBVHja7NnJDcAgDARA6L/plBCF4AMx+weNf9Z6zI8Z1QEGBgYGBgYGBgZuBJ7BAQYGBgYGBgYGBu4Ezg4wMDAwMDAwMDBwJLh7Pw0MDAwMDAwMDAycCc5eyIGBgYGB18BZ74CBgYGBgYGBgYGBgYGBgYGBgYGBgXPBUQdEYGBgYODe4G0fAwMDAx8OrlrggYGBgYF7FSmvAwEDAwMDAwMDAwMDAwMDA18HXg0wMDAw8L/+OOrgCAwMDAwMDAwMDFwAfgQYAHTLQwGQlknzAAAAAElFTkSuQmCC">
+			</a>
+		<div>
+	</body>
+</html>

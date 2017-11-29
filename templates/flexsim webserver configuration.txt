@@ -1,0 +1,23 @@
+# This file needs to be in the same directory as flexsimserver.bat
+
+Flexsim Program Directory:      C:\Program Files\FlexSim 2017 Update 1\program
+Model Directory:                C:\nova
+Flexsim Data Directory:         C:\Users\Vitor\AppData\Roaming\FlexSim\FlexSim17.1
+Model Uploading:                no
+Model Downloading:              no
+Model Deleting:                 no
+Max Upload Size (bytes):        10000000
+Reply Timeout (milliseconds):   10000
+Max Instances (of Flexsim):     8
+Max Threads Per Instance:       max
+Max Job Queue Length:           100
+Max Job Timeout (seconds):      3600
+Port:                           8080
+Ignore Auto Save Files:         yes
+Use Windows Authentication:     no
+Restrict UserGroup Directories: no
+Active Directory:
+    url:                        ldap://dc.domainName.com
+    baseDN:                     dc=domainName,dc=com
+    username:                   specialUser@domainName.com
+    password:                   password

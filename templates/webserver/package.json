@@ -1,0 +1,19 @@
+{
+  "name": "flexsimserver",
+  "version": "2.0.0",
+  "main":"index.js",
+  "author":"FlexSim",
+  "description": "Access FlexSim through a web browser",
+  "dependencies": {
+    "activedirectory": "0.7.2",
+    "express": "4.14.0",
+    "body-parser": "1.16.1",
+    "busboy": "0.2.14",
+    "http-parser-js": "0.4.4",
+    "keypress": "0.2.1",
+    "node-sspi": "0.1.14",
+    "socket.io": "1.4.8",
+    "yamljs": "0.2.8"
+  },
+  "private": true
+}
